@@ -2,8 +2,10 @@
   <div ng-controller="QuizController">
 
     <div ng-show="quizView">
-      <h3 ng-repeat="quiz in quizzes" ng-click="quizSelected(quiz)">
-        {{quiz.title}}
+      <!-- in "quizzes" refers to .quizzes method that queried quizzes -->
+      <!-- on ng-click, execute quizSelected method, passing in (quiz) -->
+      <h3 ng-repeat="quizAB in quizzes" ng-click="quizSelected(quizAB)">
+        {{quizAB.title}}
       </h3>
     </div>
 
@@ -15,6 +17,7 @@
           <label>{{choice}}</label>
         </div>
         <input type="submit">
+       <p>Correct Answers: {{correctAnswers}} / Total Questions: {{totalQuestions}}</p>
       </form>
 
       <h3>Update Question</h3>

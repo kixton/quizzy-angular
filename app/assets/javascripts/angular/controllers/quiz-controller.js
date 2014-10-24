@@ -1,6 +1,7 @@
 app.controller('QuizController', ['$scope', '$timeout', 'Quiz', 'Question',
   function($scope, $timeout, Quiz, Question) {
   
+  // views = ng-show
   $scope.quizView = true;
   $scope.questionsView = false;
   $scope.scoreView = false;
@@ -11,23 +12,25 @@ app.controller('QuizController', ['$scope', '$timeout', 'Quiz', 'Question',
     $scope.quizView = false;
     $scope.questionsView = true;
 
+    $scope.currentQuestion = 0;
+    $scope.correctAnswers = 0;
+    
+    // define .questions by queryinng quizId
     $scope.questions = Question.query({quizId: quiz.id}, function(quizzes) {
+    // callback = quiz object; define quiz object's question & answer
       for (var i = 0; i < quizzes.length; i++) {
         quizzes[i].choices = quizzes[i].choices.split(';');
         $scope.question = $scope.questions[$scope.currentQuestion];
       }
-      $scope.correctAnswers = 0;
       $scope.totalQuestions = quizzes.length;
     });
-    $scope.currentQuestion = 0;
   };
 
   $scope.updateQuestion = function() {
     $scope.question.$update({quizId: $scope.question.quiz_id}, function(data) {
-      data.choices = data.choices.split(';');
+      // data.choices = data.choices.split(';');
       $scope.question = data;
     });
-
   };
 
   $scope.submitQuestion = function(question) {
